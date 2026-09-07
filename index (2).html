@@ -1,0 +1,2996 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>RADAR KIDS — Website</title>
+<style>/* RADAR KIDS — Color tokens
+   Source: Brand Manual §04 Sistema Cromático / Strategy Doc §18
+   "Energy without infantilization" — off-white + black structure; blue + orange lead; green/pink are sparing accents.
+   Usage ratio target: ~60% off-white/paper, ~22% black, ~12% blue, ~6% orange (never as decorative fills). */
+
+:root{
+  /* ---- base palette (raw values) ---- */
+  --rk-black:        #111111;
+  --rk-graphite:      #1D1D1D;
+  --rk-off-white:     #F7F5EF;
+  --rk-paper:         #FBFAF6;
+  --rk-white:         #FFFFFF;
+  --rk-line:          #E3E0D6;
+  --rk-muted:         #8C8A82;
+
+  --rk-blue:          #0052FF;
+  --rk-blue-deep:     #0040C8;
+  --rk-orange:        #FF8A00;
+  --rk-pink:          #FF6FAE;
+  --rk-green:         #2E8B57;
+  --rk-yellow:        #F2C200;
+
+  /* ---- semantic aliases ---- */
+  --surface-page:       var(--rk-paper);
+  --surface-page-alt:   var(--rk-off-white);
+  --surface-card:       var(--rk-white);
+  --surface-inverse:    var(--rk-black);
+  --surface-inverse-2:  var(--rk-graphite);
+
+  --text-primary:       var(--rk-black);
+  --text-inverse:       var(--rk-off-white);
+  --text-muted:         var(--rk-muted);
+  --text-on-accent:     var(--rk-white);
+
+  --border-default:     var(--rk-line);
+  --border-inverse:     rgba(255,255,255,.14);
+
+  --accent-primary:     var(--rk-blue);     /* leads: CTAs, links, data */
+  --accent-primary-deep:var(--rk-blue-deep);
+  --accent-secondary:   var(--rk-orange);   /* energy accent, signature asterisk */
+  --accent-tertiary:    var(--rk-pink);     /* culture / discovery accent */
+  --accent-quaternary:  var(--rk-green);    /* growth / transform accent */
+  --accent-quinary:     var(--rk-yellow);   /* founder-authority accent */
+
+  --focus-ring:         var(--rk-blue);
+  --selection-bg:       var(--rk-blue);
+  --selection-fg:       var(--rk-white);
+
+  /* pillar → color mapping (Observar·Conectar·Inspirar·Transformar) */
+  --pillar-observar:    var(--rk-blue);
+  --pillar-conectar:    var(--rk-orange);
+  --pillar-inspirar:    var(--rk-pink);
+  --pillar-transformar: var(--rk-green);
+}
+
+/* RADAR KIDS — Typography tokens
+   Brand font: PP Neue Montreal (licensed, not supplied by the brand materials).
+   SUBSTITUTION: Hanken Grotesk from Google Fonts — the brand manual & strategy doc
+   themselves use this as the display substitute. Flagged in readme.md; ask the
+   brand owner for PP Neue Montreal's licensed files to swap in later. */
+
+/* cyrillic-ext */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+/* cyrillic-ext */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+
+
+:root{
+  --font-sans: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+  /* single grotesque family carries the whole brand — weight does the differentiating */
+  --font-weight-light:     300;
+  --font-weight-regular:   400;
+  --font-weight-medium:    500;
+  --font-weight-semibold:  600;
+  --font-weight-bold:      700;
+  --font-weight-black:     800;
+
+  /* type scale (desktop) */
+  --text-display:   clamp(2.5rem, 6vw, 5.25rem);   /* 40–84px · H1 */
+  --text-h1:         clamp(2.125rem, 5vw, 3.75rem);  /* 34–60px */
+  --text-h2:         clamp(1.5rem, 3.2vw, 2.5rem);   /* 24–40px */
+  --text-h3:         1.375rem;                        /* 22px */
+  --text-body-lg:    1.3125rem;                       /* 21px · lead */
+  --text-body:       1.0625rem;                       /* 17px */
+  --text-small:      0.9375rem;                       /* 15px */
+  --text-caption:    0.8125rem;                       /* 13px */
+  --text-label:      0.6875rem;                       /* 11px · uppercase labels */
+
+  --tracking-tight:   -.04em;   /* display */
+  --tracking-snug:    -.02em;   /* headings */
+  --tracking-normal:   0em;
+  --tracking-wide:     .04em;   /* KIDS lockup lettering */
+  --tracking-label:    .18em;   /* uppercase captions/eyebrows */
+  --tracking-eyebrow:  .3em;    /* section numerals */
+
+  --leading-tight:   0.9;
+  --leading-snug:    1.0;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+}
+
+/* RADAR KIDS — Spacing, radius, border & shadow tokens
+   Source: layout rhythm observed across both brand documents (100–140px section
+   padding, 1px hairlines on off-white, mostly-square corners, deep soft shadows
+   only on "applications" mockups — never on flat page content). */
+
+:root{
+  /* spacing scale */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  28px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-30: 120px;
+
+  --content-max-width: 1180px;
+  --content-padding-x: 40px;
+
+  /* radius — brand is almost square; radius is used sparingly, mainly on
+     application mockups (cards, phones, browser chrome), never on the logo. */
+  --radius-none: 0px;
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   8px;
+  --radius-xl:   10px;
+  --radius-pill: 999px;   /* CTA buttons, chips */
+  --radius-full: 50%;     /* avatar / icon badges / dots */
+
+  /* borders */
+  --border-width-hairline: 1px;
+  --border-width-thick:    2px;
+  --border-color: var(--border-default);
+
+  /* shadows — reserved for "application" mockups (cards floating on a page),
+     never used on the flat site/report content itself */
+  --shadow-sm:  0 4px 14px rgba(17,17,17,.08);
+  --shadow-md:  0 18px 40px rgba(17,17,17,.12);
+  --shadow-lg:  0 30px 60px rgba(17,17,17,.35);
+  --shadow-xl:  0 40px 80px rgba(17,17,17,.4);
+}
+
+/* RADAR KIDS — Motion tokens
+   Source: both documents use one consistent scroll-reveal pattern — fade + rise,
+   never a bounce/spring. Editorial, confident, unhurried. */
+
+:root{
+  --ease-editorial: cubic-bezier(.16,1,.3,1); /* @kind other */  /* signature reveal ease */
+  --ease-standard:  cubic-bezier(.4,0,.2,1); /* @kind other */
+
+  --duration-fast:   150ms; /* @kind other */
+  --duration-base:   300ms; /* @kind other */
+  --duration-slow:   600ms; /* @kind other */
+  --duration-reveal: 900ms; /* @kind other */  /* scroll-reveal fade+rise */
+
+  --reveal-offset: 26px;      /* translateY starting offset for .rv-style reveals */
+}
+
+</style>
+
+
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js" crossorigin></script>
+<script>/* @ds-bundle: {"format":4,"namespace":"RADARKIDSDesignSystem_5f51e9","components":[{"name":"Wordmark","sourcePath":"components/brand/Wordmark.jsx"},{"name":"Badge","sourcePath":"components/core/Badge.jsx"},{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Card","sourcePath":"components/core/Card.jsx"},{"name":"IconButton","sourcePath":"components/core/IconButton.jsx"},{"name":"Tag","sourcePath":"components/core/Tag.jsx"},{"name":"Dialog","sourcePath":"components/feedback/Dialog.jsx"},{"name":"Toast","sourcePath":"components/feedback/Toast.jsx"},{"name":"Tooltip","sourcePath":"components/feedback/Tooltip.jsx"},{"name":"Checkbox","sourcePath":"components/forms/Checkbox.jsx"},{"name":"Input","sourcePath":"components/forms/Input.jsx"},{"name":"Radio","sourcePath":"components/forms/Radio.jsx"},{"name":"Select","sourcePath":"components/forms/Select.jsx"},{"name":"Switch","sourcePath":"components/forms/Switch.jsx"},{"name":"Tabs","sourcePath":"components/navigation/Tabs.jsx"}],"sourceHashes":{"components/brand/Wordmark.jsx":"075bc4b31459","components/core/Badge.jsx":"a5e95c4cc7f6","components/core/Button.jsx":"d91ab470d897","components/core/Card.jsx":"8a13df4eee16","components/core/IconButton.jsx":"205523121da0","components/core/Tag.jsx":"2b448a9408c8","components/feedback/Dialog.jsx":"292181dfd048","components/feedback/Toast.jsx":"7040f77f9ab2","components/feedback/Tooltip.jsx":"cf9dc78d932b","components/forms/Checkbox.jsx":"bf903253cdc2","components/forms/Input.jsx":"e9f35fdf44f6","components/forms/Radio.jsx":"63fe9241f79b","components/forms/Select.jsx":"139328563843","components/forms/Switch.jsx":"504713346f07","components/navigation/Tabs.jsx":"bd5c2f319bcb","ui_kits/business-card/BusinessCardApp.jsx":"ab329a5702e3","ui_kits/deck/DeckApp.jsx":"6a5c62dca65c","ui_kits/instagram/InstagramApp.jsx":"b2b77735deef","ui_kits/trend-report/ReportApp.jsx":"248907207573","ui_kits/website/WebsiteApp.jsx":"62ab88273245"},"inlinedExternals":[],"unexposedExports":[]} */
+
+(() => {
+
+const __ds_ns = (window.RADARKIDSDesignSystem_5f51e9 = window.RADARKIDSDesignSystem_5f51e9 || {});
+
+const __ds_scope = {};
+
+(__ds_ns.__errors = __ds_ns.__errors || []);
+
+// components/brand/Wordmark.jsx
+try { (() => {
+/** @type {import('./Wordmark').Wordmark} */
+function Wordmark({
+  variant = 'light',
+  size = 48,
+  showAsterisk = true,
+  showRule = false
+}) {
+  const kidsColors = ['var(--rk-blue)', 'var(--rk-orange)', 'var(--rk-pink)', 'var(--rk-green)'];
+  const ink = variant === 'dark' ? 'var(--rk-off-white)' : 'var(--rk-black)';
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'inline-flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: size * 0.12,
+      fontFamily: 'var(--font-sans)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'inline-flex',
+      alignItems: 'baseline',
+      gap: size * 0.18,
+      fontSize: size,
+      fontWeight: 800,
+      letterSpacing: '-0.04em',
+      lineHeight: 1,
+      color: ink
+    }
+  }, /*#__PURE__*/React.createElement("span", null, "RADAR"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'inline-flex',
+      letterSpacing: '.05em'
+    }
+  }, ['K', 'I', 'D', 'S'].map((ch, i) => /*#__PURE__*/React.createElement("span", {
+    key: ch,
+    style: {
+      color: kidsColors[i]
+    }
+  }, ch))), showAsterisk && /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-orange)',
+      fontSize: size * 0.5,
+      alignSelf: 'flex-start'
+    }
+  }, "*")), showRule && /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: size * 1.1,
+      height: Math.max(3, size * 0.08),
+      background: 'var(--rk-blue)'
+    }
+  }));
+}
+Object.assign(__ds_scope, { Wordmark });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/brand/Wordmark.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/Badge.jsx
+try { (() => {
+const pillarColor = {
+  observar: 'var(--rk-blue)',
+  conectar: 'var(--rk-orange)',
+  inspirar: 'var(--rk-pink)',
+  transformar: 'var(--rk-green)',
+  neutral: 'var(--rk-black)'
+};
+
+/** @type {import('./Badge').Badge} */
+function Badge({
+  children,
+  pillar = 'neutral',
+  style: variantStyle = 'solid'
+}) {
+  const color = pillarColor[pillar] || pillarColor.neutral;
+  const solid = variantStyle === 'solid';
+  return /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 6,
+      fontFamily: 'var(--font-sans)',
+      fontSize: 11,
+      fontWeight: 700,
+      letterSpacing: '.14em',
+      textTransform: 'uppercase',
+      padding: '6px 12px',
+      borderRadius: 'var(--radius-pill)',
+      whiteSpace: 'nowrap',
+      background: solid ? color : 'transparent',
+      color: solid ? '#fff' : color,
+      border: solid ? 'none' : `1.5px solid ${color}`
+    }
+  }, children);
+}
+Object.assign(__ds_scope, { Badge });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Badge.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/Button.jsx
+try { (() => {
+const sizes = {
+  sm: {
+    padding: '10px 18px',
+    fontSize: 13
+  },
+  md: {
+    padding: '14px 24px',
+    fontSize: 14
+  },
+  lg: {
+    padding: '17px 30px',
+    fontSize: 15
+  }
+};
+function paletteFor(variant) {
+  switch (variant) {
+    case 'primary':
+      return {
+        bg: 'var(--rk-blue)',
+        fg: '#fff',
+        border: 'transparent',
+        hoverBg: 'var(--rk-blue-deep)'
+      };
+    case 'dark':
+      return {
+        bg: 'var(--rk-black)',
+        fg: 'var(--rk-off-white)',
+        border: 'transparent',
+        hoverBg: '#000'
+      };
+    case 'secondary':
+      return {
+        bg: 'transparent',
+        fg: 'var(--rk-black)',
+        border: 'var(--rk-black)',
+        hoverBg: 'rgba(17,17,17,.06)'
+      };
+    case 'ghost':
+      return {
+        bg: 'transparent',
+        fg: 'var(--rk-black)',
+        border: 'transparent',
+        hoverBg: 'rgba(17,17,17,.06)'
+      };
+    default:
+      return {
+        bg: 'var(--rk-blue)',
+        fg: '#fff',
+        border: 'transparent',
+        hoverBg: 'var(--rk-blue-deep)'
+      };
+  }
+}
+
+/** @type {import('./Button').Button} */
+function Button({
+  children,
+  variant = 'primary',
+  size = 'md',
+  disabled = false,
+  icon = null,
+  onClick,
+  type = 'button'
+}) {
+  const pal = paletteFor(variant);
+  const s = sizes[size] || sizes.md;
+  const [hover, setHover] = React.useState(false);
+  return /*#__PURE__*/React.createElement("button", {
+    type: type,
+    disabled: disabled,
+    onClick: onClick,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 10,
+      justifyContent: 'center',
+      fontFamily: 'var(--font-sans)',
+      fontWeight: 600,
+      letterSpacing: '-.01em',
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      borderRadius: 'var(--radius-pill)',
+      border: pal.border === 'transparent' ? 'none' : `1.5px solid ${pal.border}`,
+      background: disabled ? 'var(--rk-line)' : hover ? pal.hoverBg : pal.bg,
+      color: disabled ? 'var(--rk-muted)' : pal.fg,
+      padding: s.padding,
+      fontSize: s.fontSize,
+      transition: 'background var(--duration-fast) var(--ease-standard)'
+    }
+  }, children, icon);
+}
+Object.assign(__ds_scope, { Button });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Button.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/Card.jsx
+try { (() => {
+/** @type {import('./Card').Card} */
+function Card({
+  children,
+  variant = 'flat',
+  padding = 28
+}) {
+  const base = {
+    borderRadius: 'var(--radius-lg)',
+    padding,
+    fontFamily: 'var(--font-sans)',
+    background: 'var(--surface-card)'
+  };
+  const variants = {
+    flat: {
+      border: '1px solid var(--border-default)'
+    },
+    elevated: {
+      border: 'none',
+      boxShadow: 'var(--shadow-md)'
+    },
+    inverse: {
+      background: 'var(--rk-black)',
+      color: 'var(--rk-off-white)',
+      border: 'none'
+    }
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...base,
+      ...variants[variant]
+    }
+  }, children);
+}
+Object.assign(__ds_scope, { Card });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Card.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/IconButton.jsx
+try { (() => {
+const sizeMap = {
+  sm: 32,
+  md: 40,
+  lg: 48
+};
+
+/** @type {import('./IconButton').IconButton} */
+function IconButton({
+  icon,
+  variant = 'ghost',
+  size = 'md',
+  disabled = false,
+  onClick,
+  ariaLabel
+}) {
+  const dim = sizeMap[size] || sizeMap.md;
+  const [hover, setHover] = React.useState(false);
+  const isDark = variant === 'dark';
+  return /*#__PURE__*/React.createElement("button", {
+    "aria-label": ariaLabel,
+    disabled: disabled,
+    onClick: onClick,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+    style: {
+      width: dim,
+      height: dim,
+      borderRadius: 'var(--radius-full)',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      border: variant === 'outline' ? '1.5px solid var(--rk-black)' : 'none',
+      background: disabled ? 'var(--rk-line)' : isDark ? hover ? '#000' : 'var(--rk-black)' : hover ? 'rgba(17,17,17,.08)' : 'transparent',
+      color: disabled ? 'var(--rk-muted)' : isDark ? 'var(--rk-off-white)' : 'var(--rk-black)',
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      transition: 'background var(--duration-fast) var(--ease-standard)'
+    }
+  }, icon);
+}
+Object.assign(__ds_scope, { IconButton });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/IconButton.jsx", error: String((e && e.message) || e) }); }
+
+// components/core/Tag.jsx
+try { (() => {
+/** @type {import('./Tag').Tag} */
+function Tag({
+  children,
+  active = false,
+  onClick
+}) {
+  const [hover, setHover] = React.useState(false);
+  const interactive = typeof onClick === 'function';
+  return /*#__PURE__*/React.createElement("span", {
+    onClick: onClick,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      fontFamily: 'var(--font-sans)',
+      fontSize: 12,
+      fontWeight: 500,
+      padding: '7px 14px',
+      borderRadius: 'var(--radius-pill)',
+      background: active ? 'var(--rk-black)' : hover && interactive ? 'var(--rk-white)' : 'var(--rk-off-white)',
+      color: active ? 'var(--rk-off-white)' : 'var(--rk-black)',
+      border: '1px solid ' + (active ? 'var(--rk-black)' : 'var(--rk-line)'),
+      cursor: interactive ? 'pointer' : 'default',
+      transition: 'background var(--duration-fast) var(--ease-standard)'
+    }
+  }, children);
+}
+Object.assign(__ds_scope, { Tag });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/core/Tag.jsx", error: String((e && e.message) || e) }); }
+
+// components/feedback/Dialog.jsx
+try { (() => {
+/** @type {import('./Dialog').Dialog} */
+function Dialog({
+  open,
+  onClose,
+  title,
+  children
+}) {
+  if (!open) return null;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'fixed',
+      inset: 0,
+      background: 'rgba(17,17,17,.5)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 1000,
+      fontFamily: 'var(--font-sans)'
+    },
+    onClick: onClose
+  }, /*#__PURE__*/React.createElement("div", {
+    onClick: e => e.stopPropagation(),
+    style: {
+      background: 'var(--rk-paper)',
+      borderRadius: 'var(--radius-lg)',
+      padding: 32,
+      maxWidth: 440,
+      width: '90%',
+      boxShadow: 'var(--shadow-lg)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      marginBottom: 16
+    }
+  }, title && /*#__PURE__*/React.createElement("h3", {
+    style: {
+      margin: 0,
+      fontSize: 22,
+      fontWeight: 800,
+      letterSpacing: '-.01em'
+    }
+  }, title), /*#__PURE__*/React.createElement("button", {
+    onClick: onClose,
+    "aria-label": "Fechar",
+    style: {
+      background: 'none',
+      border: 'none',
+      cursor: 'pointer',
+      fontSize: 20,
+      color: 'var(--rk-muted)',
+      lineHeight: 1
+    }
+  }, "\xD7")), children));
+}
+Object.assign(__ds_scope, { Dialog });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Dialog.jsx", error: String((e && e.message) || e) }); }
+
+// components/feedback/Toast.jsx
+try { (() => {
+const kindColor = {
+  info: 'var(--rk-blue)',
+  success: 'var(--rk-green)',
+  error: '#c33'
+};
+
+/** @type {import('./Toast').Toast} */
+function Toast({
+  children,
+  kind = 'info',
+  onDismiss
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 12,
+      background: 'var(--rk-black)',
+      color: 'var(--rk-off-white)',
+      borderRadius: 'var(--radius-md)',
+      padding: '14px 18px',
+      boxShadow: 'var(--shadow-md)',
+      fontFamily: 'var(--font-sans)',
+      fontSize: 14,
+      maxWidth: 360
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 8,
+      height: 8,
+      borderRadius: '50%',
+      background: kindColor[kind],
+      flexShrink: 0
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: 1
+    }
+  }, children), onDismiss && /*#__PURE__*/React.createElement("button", {
+    onClick: onDismiss,
+    style: {
+      background: 'none',
+      border: 'none',
+      color: 'var(--rk-off-white)',
+      opacity: .6,
+      cursor: 'pointer',
+      fontSize: 16
+    }
+  }, "\xD7"));
+}
+Object.assign(__ds_scope, { Toast });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Toast.jsx", error: String((e && e.message) || e) }); }
+
+// components/feedback/Tooltip.jsx
+try { (() => {
+/** @type {import('./Tooltip').Tooltip} */
+function Tooltip({
+  children,
+  label,
+  position = 'top'
+}) {
+  const [show, setShow] = React.useState(false);
+  const posStyle = {
+    top: {
+      bottom: '100%',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      marginBottom: 8
+    },
+    bottom: {
+      top: '100%',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      marginTop: 8
+    }
+  }[position] || {};
+  return /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'relative',
+      display: 'inline-block'
+    },
+    onMouseEnter: () => setShow(true),
+    onMouseLeave: () => setShow(false)
+  }, children, show && /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'absolute',
+      ...posStyle,
+      background: 'var(--rk-black)',
+      color: 'var(--rk-off-white)',
+      fontSize: 12,
+      padding: '6px 10px',
+      borderRadius: 'var(--radius-sm)',
+      whiteSpace: 'nowrap',
+      fontFamily: 'var(--font-sans)',
+      zIndex: 10
+    }
+  }, label));
+}
+Object.assign(__ds_scope, { Tooltip });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/feedback/Tooltip.jsx", error: String((e && e.message) || e) }); }
+
+// components/forms/Checkbox.jsx
+try { (() => {
+/** @type {import('./Checkbox').Checkbox} */
+function Checkbox({
+  label,
+  checked,
+  onChange,
+  disabled = false
+}) {
+  return /*#__PURE__*/React.createElement("label", {
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 10,
+      fontFamily: 'var(--font-sans)',
+      fontSize: 14,
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      color: disabled ? 'var(--rk-muted)' : 'var(--rk-black)'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    onClick: () => !disabled && onChange && onChange(!checked),
+    style: {
+      width: 20,
+      height: 20,
+      borderRadius: 'var(--radius-sm)',
+      border: `1.5px solid ${checked ? 'var(--rk-black)' : 'var(--rk-line)'}`,
+      background: checked ? 'var(--rk-black)' : 'var(--rk-white)',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0,
+      transition: 'background var(--duration-fast) var(--ease-standard)'
+    }
+  }, checked && /*#__PURE__*/React.createElement("svg", {
+    width: "12",
+    height: "12",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "var(--rk-off-white)",
+    strokeWidth: "3",
+    strokeLinecap: "round"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M4 12l5 5L20 6"
+  }))), label);
+}
+Object.assign(__ds_scope, { Checkbox });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Checkbox.jsx", error: String((e && e.message) || e) }); }
+
+// components/forms/Input.jsx
+try { (() => {
+/** @type {import('./Input').Input} */
+function Input({
+  label,
+  placeholder,
+  value,
+  onChange,
+  type = 'text',
+  disabled = false,
+  error
+}) {
+  const [focus, setFocus] = React.useState(false);
+  return /*#__PURE__*/React.createElement("label", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 8,
+      fontFamily: 'var(--font-sans)',
+      width: '100%'
+    }
+  }, label && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      letterSpacing: '.14em',
+      textTransform: 'uppercase',
+      color: 'var(--rk-muted)'
+    }
+  }, label), /*#__PURE__*/React.createElement("input", {
+    type: type,
+    value: value,
+    placeholder: placeholder,
+    disabled: disabled,
+    onChange: onChange,
+    onFocus: () => setFocus(true),
+    onBlur: () => setFocus(false),
+    style: {
+      font: 'inherit',
+      fontSize: 15,
+      padding: '13px 16px',
+      borderRadius: 'var(--radius-md)',
+      border: `1.5px solid ${error ? '#c33' : focus ? 'var(--rk-black)' : 'var(--rk-line)'}`,
+      background: disabled ? 'var(--rk-off-white)' : 'var(--rk-white)',
+      color: 'var(--rk-black)',
+      outline: 'none',
+      transition: 'border-color var(--duration-fast) var(--ease-standard)'
+    }
+  }), error && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      color: '#c33'
+    }
+  }, error));
+}
+Object.assign(__ds_scope, { Input });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Input.jsx", error: String((e && e.message) || e) }); }
+
+// components/forms/Radio.jsx
+try { (() => {
+/** @type {import('./Radio').Radio} */
+function Radio({
+  label,
+  checked,
+  onChange,
+  disabled = false
+}) {
+  return /*#__PURE__*/React.createElement("label", {
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 10,
+      fontFamily: 'var(--font-sans)',
+      fontSize: 14,
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      color: disabled ? 'var(--rk-muted)' : 'var(--rk-black)'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    onClick: () => !disabled && onChange && onChange(),
+    style: {
+      width: 20,
+      height: 20,
+      borderRadius: '50%',
+      border: `1.5px solid ${checked ? 'var(--rk-blue)' : 'var(--rk-line)'}`,
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0
+    }
+  }, checked && /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 10,
+      height: 10,
+      borderRadius: '50%',
+      background: 'var(--rk-blue)'
+    }
+  })), label);
+}
+Object.assign(__ds_scope, { Radio });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Radio.jsx", error: String((e && e.message) || e) }); }
+
+// components/forms/Select.jsx
+try { (() => {
+/** @type {import('./Select').Select} */
+function Select({
+  label,
+  value,
+  onChange,
+  options = [],
+  disabled = false
+}) {
+  return /*#__PURE__*/React.createElement("label", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 8,
+      fontFamily: 'var(--font-sans)',
+      width: '100%'
+    }
+  }, label && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      letterSpacing: '.14em',
+      textTransform: 'uppercase',
+      color: 'var(--rk-muted)'
+    }
+  }, label), /*#__PURE__*/React.createElement("select", {
+    value: value,
+    disabled: disabled,
+    onChange: onChange,
+    style: {
+      font: 'inherit',
+      fontSize: 15,
+      padding: '13px 16px',
+      borderRadius: 'var(--radius-md)',
+      border: '1.5px solid var(--rk-line)',
+      background: disabled ? 'var(--rk-off-white)' : 'var(--rk-white)',
+      color: 'var(--rk-black)',
+      outline: 'none',
+      appearance: 'none'
+    }
+  }, options.map(o => /*#__PURE__*/React.createElement("option", {
+    key: o.value,
+    value: o.value
+  }, o.label))));
+}
+Object.assign(__ds_scope, { Select });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Select.jsx", error: String((e && e.message) || e) }); }
+
+// components/forms/Switch.jsx
+try { (() => {
+/** @type {import('./Switch').Switch} */
+function Switch({
+  checked,
+  onChange,
+  disabled = false,
+  label
+}) {
+  return /*#__PURE__*/React.createElement("label", {
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 10,
+      fontFamily: 'var(--font-sans)',
+      fontSize: 14,
+      cursor: disabled ? 'not-allowed' : 'pointer'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    onClick: () => !disabled && onChange && onChange(!checked),
+    style: {
+      width: 42,
+      height: 24,
+      borderRadius: 'var(--radius-pill)',
+      padding: 3,
+      background: checked ? 'var(--rk-blue)' : 'var(--rk-line)',
+      display: 'inline-flex',
+      alignItems: 'center',
+      transition: 'background var(--duration-fast) var(--ease-standard)'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 18,
+      height: 18,
+      borderRadius: '50%',
+      background: '#fff',
+      transform: checked ? 'translateX(18px)' : 'translateX(0)',
+      transition: 'transform var(--duration-fast) var(--ease-standard)',
+      boxShadow: '0 1px 3px rgba(0,0,0,.3)'
+    }
+  })), label);
+}
+Object.assign(__ds_scope, { Switch });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/forms/Switch.jsx", error: String((e && e.message) || e) }); }
+
+// components/navigation/Tabs.jsx
+try { (() => {
+/** @type {import('./Tabs').Tabs} */
+function Tabs({
+  items = [],
+  value,
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 28,
+      borderBottom: '1px solid var(--rk-line)',
+      fontFamily: 'var(--font-sans)'
+    }
+  }, items.map(item => {
+    const isActive = item.value === value;
+    return /*#__PURE__*/React.createElement("button", {
+      key: item.value,
+      onClick: () => onChange && onChange(item.value),
+      style: {
+        background: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        padding: '14px 0',
+        fontSize: 14,
+        fontWeight: isActive ? 700 : 500,
+        color: isActive ? 'var(--rk-black)' : 'var(--rk-muted)',
+        borderBottom: `2px solid ${isActive ? 'var(--rk-blue)' : 'transparent'}`,
+        marginBottom: -1,
+        transition: 'color var(--duration-fast) var(--ease-standard)'
+      }
+    }, item.label);
+  }));
+}
+Object.assign(__ds_scope, { Tabs });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "components/navigation/Tabs.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/business-card/BusinessCardApp.jsx
+try { (() => {
+const RK = window.RADARKIDSDesignSystem_5f51e9;
+const {
+  Wordmark
+} = RK;
+function Front() {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 340,
+      height: 200,
+      borderRadius: 10,
+      background: 'var(--rk-off-white)',
+      color: 'var(--rk-black)',
+      padding: 26,
+      position: 'relative',
+      overflow: 'hidden',
+      boxShadow: 'var(--shadow-lg)',
+      fontFamily: 'var(--font-sans)'
+    }
+  }, /*#__PURE__*/React.createElement(Wordmark, {
+    size: 22
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 40,
+      height: 4,
+      background: 'var(--rk-blue)',
+      marginTop: 10
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      bottom: -20,
+      right: -20,
+      fontSize: 120,
+      color: 'var(--rk-orange)',
+      opacity: .18,
+      lineHeight: 1
+    }
+  }, "*"));
+}
+function Back() {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 340,
+      height: 200,
+      borderRadius: 10,
+      background: 'var(--rk-black)',
+      color: 'var(--rk-off-white)',
+      padding: 26,
+      position: 'relative',
+      boxShadow: 'var(--shadow-lg)',
+      fontFamily: 'var(--font-sans)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 18,
+      fontWeight: 700
+    }
+  }, "Priscila Sales"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: 'var(--rk-orange)',
+      letterSpacing: '.1em',
+      marginTop: 4,
+      marginBottom: 18
+    }
+  }, "FUNDADORA"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 11,
+      lineHeight: 1.9,
+      opacity: .85,
+      fontFamily: 'var(--font-mono)'
+    }
+  }, "+55 11 99999 0000", /*#__PURE__*/React.createElement("br", null), "contato@radarkids.com.br", /*#__PURE__*/React.createElement("br", null), "@radarkids.oficial"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      bottom: 24,
+      right: 26,
+      fontWeight: 800,
+      fontSize: 20,
+      letterSpacing: '.05em'
+    }
+  }, "R", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-blue)'
+    }
+  }, "K")));
+}
+function BusinessCardApp() {
+  const [flipped, setFlipped] = React.useState(false);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      minHeight: '100vh',
+      background: 'var(--rk-off-white)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 20,
+      fontFamily: 'var(--font-sans)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    onClick: () => setFlipped(f => !f),
+    style: {
+      cursor: 'pointer'
+    }
+  }, flipped ? /*#__PURE__*/React.createElement(Back, null) : /*#__PURE__*/React.createElement(Front, null)), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      color: 'var(--rk-muted)'
+    }
+  }, "clique no cart\xE3o para virar"));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(BusinessCardApp, null));
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/business-card/BusinessCardApp.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/deck/DeckApp.jsx
+try { (() => {
+const RK = window.RADARKIDSDesignSystem_5f51e9;
+const {
+  Wordmark,
+  Badge
+} = RK;
+const SLIDES = [{
+  key: 'title'
+}, {
+  key: 'pillars'
+}, {
+  key: 'data'
+}, {
+  key: 'quote'
+}, {
+  key: 'closing'
+}];
+function TitleSlide() {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...slideBase,
+      background: 'var(--rk-black)',
+      color: 'var(--rk-off-white)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      width: 280,
+      height: 280,
+      borderRadius: '50%',
+      background: 'var(--rk-blue)',
+      right: -70,
+      bottom: -100
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: 'absolute',
+      top: 60,
+      right: 70,
+      fontSize: 40,
+      color: 'var(--rk-orange)'
+    }
+  }, "*"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative',
+      zIndex: 1
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      letterSpacing: '.24em',
+      textTransform: 'uppercase',
+      color: 'var(--rk-orange)',
+      marginBottom: 22
+    }
+  }, "Radar Kids \xB7 Deck Comercial 2026"), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 46,
+      fontWeight: 800,
+      letterSpacing: '-.03em',
+      lineHeight: 1.05,
+      maxWidth: 640,
+      margin: 0
+    }
+  }, "Tend\xEAncias que movem marcas e ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-blue)'
+    }
+  }, "transformam inf\xE2ncias."))));
+}
+function PillarsSlide() {
+  const items = [{
+    k: 'observar',
+    t: 'Observar'
+  }, {
+    k: 'conectar',
+    t: 'Conectar'
+  }, {
+    k: 'inspirar',
+    t: 'Inspirar'
+  }, {
+    k: 'transformar',
+    t: 'Transformar'
+  }];
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...slideBase,
+      background: 'var(--rk-paper)',
+      color: 'var(--rk-black)',
+      justifyContent: 'flex-start'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      letterSpacing: '.24em',
+      textTransform: 'uppercase',
+      color: 'var(--rk-blue)',
+      marginBottom: 20
+    }
+  }, "Estrat\xE9gia"), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 38,
+      fontWeight: 800,
+      letterSpacing: '-.02em',
+      margin: '0 0 40px'
+    }
+  }, "Quatro pilares, um radar."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4,1fr)',
+      gap: 2,
+      background: 'var(--rk-line)'
+    }
+  }, items.map(p => /*#__PURE__*/React.createElement("div", {
+    key: p.t,
+    style: {
+      background: '#fff',
+      padding: 24,
+      minHeight: 120,
+      display: 'flex',
+      alignItems: 'flex-end'
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Badge, {
+    pillar: p.k
+  }, p.t))))));
+}
+function DataSlide() {
+  const rows = [{
+    l: 'Anos de experiência da fundadora',
+    v: '13+'
+  }, {
+    l: 'Pilares estratégicos',
+    v: '4'
+  }, {
+    l: 'Serviços de pesquisa',
+    v: '4'
+  }];
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...slideBase,
+      background: 'var(--rk-off-white)',
+      color: 'var(--rk-black)',
+      justifyContent: 'flex-start'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      letterSpacing: '.24em',
+      textTransform: 'uppercase',
+      color: 'var(--rk-blue)',
+      marginBottom: 20
+    }
+  }, "O projeto em n\xFAmeros"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 60
+    }
+  }, rows.map(r => /*#__PURE__*/React.createElement("div", {
+    key: r.l
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 56,
+      fontWeight: 800,
+      color: 'var(--rk-blue)',
+      letterSpacing: '-.03em'
+    }
+  }, r.v), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 14,
+      color: '#555',
+      maxWidth: 180,
+      marginTop: 10
+    }
+  }, r.l)))));
+}
+function QuoteSlide() {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...slideBase,
+      background: 'var(--rk-black)',
+      color: 'var(--rk-off-white)',
+      textAlign: 'center',
+      alignItems: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: 760
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-orange)',
+      fontSize: 30
+    }
+  }, "*"), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 36,
+      fontWeight: 600,
+      lineHeight: 1.3,
+      letterSpacing: '-.01em',
+      margin: '20px 0 0'
+    }
+  }, "\u201CEnxergamos a inf\xE2ncia antes de virar tend\xEAncia.\u201D")));
+}
+function ClosingSlide() {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...slideBase,
+      background: 'var(--rk-black)',
+      color: 'var(--rk-off-white)',
+      alignItems: 'center',
+      textAlign: 'center',
+      justifyContent: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(Wordmark, {
+    size: 44,
+    variant: "dark",
+    showAsterisk: true
+  }), /*#__PURE__*/React.createElement("p", {
+    style: {
+      marginTop: 24,
+      fontSize: 18,
+      fontWeight: 300,
+      opacity: .8
+    }
+  }, "Observar. Conectar. Inspirar. Transformar."));
+}
+const slideBase = {
+  width: '100%',
+  height: '100%',
+  padding: 56,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  position: 'relative',
+  overflow: 'hidden',
+  fontFamily: 'var(--font-sans)',
+  boxSizing: 'border-box'
+};
+const COMPONENTS = {
+  title: TitleSlide,
+  pillars: PillarsSlide,
+  data: DataSlide,
+  quote: QuoteSlide,
+  closing: ClosingSlide
+};
+function DeckApp() {
+  const [i, setI] = React.useState(0);
+  const Comp = COMPONENTS[SLIDES[i].key];
+  const go = d => setI(v => Math.max(0, Math.min(SLIDES.length - 1, v + d)));
+  React.useEffect(() => {
+    const onKey = e => {
+      if (e.key === 'ArrowRight') go(1);
+      if (e.key === 'ArrowLeft') go(-1);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: '100vw',
+      height: '100vh',
+      background: '#000',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 960,
+      height: 540,
+      boxShadow: 'var(--shadow-xl)',
+      borderRadius: 10,
+      overflow: 'hidden'
+    }
+  }, /*#__PURE__*/React.createElement(Comp, null)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 16,
+      alignItems: 'center',
+      marginTop: 20,
+      color: '#fff',
+      fontFamily: 'var(--font-sans)',
+      fontSize: 13
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => go(-1),
+    style: navBtn
+  }, "\u2190 Anterior"), /*#__PURE__*/React.createElement("span", null, i + 1, " / ", SLIDES.length), /*#__PURE__*/React.createElement("button", {
+    onClick: () => go(1),
+    style: navBtn
+  }, "Pr\xF3ximo \u2192")));
+}
+const navBtn = {
+  background: 'rgba(255,255,255,.12)',
+  border: 'none',
+  color: '#fff',
+  padding: '8px 16px',
+  borderRadius: 999,
+  cursor: 'pointer',
+  fontFamily: 'var(--font-sans)',
+  fontSize: 13
+};
+ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(DeckApp, null));
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/deck/DeckApp.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/instagram/InstagramApp.jsx
+try { (() => {
+const RK = window.RADARKIDSDesignSystem_5f51e9;
+const {
+  Wordmark
+} = RK;
+const POSTS = [{
+  bg: 'var(--rk-blue)',
+  fg: '#fff',
+  t: 'O FUTURO SE CONSTRÓI NA INFÂNCIA'
+}, {
+  bg: '#fff',
+  fg: 'var(--rk-black)',
+  star: true
+}, {
+  bg: 'var(--rk-black)',
+  fg: '#fff',
+  t: 'INSIGHTS QUE GERAM DIREÇÃO'
+}, {
+  bg: 'var(--rk-orange)',
+  fg: '#fff',
+  t: 'TENDÊNCIAS PARA IR ALÉM'
+}, {
+  bg: 'var(--rk-green)',
+  fg: '#fff',
+  t: 'OBSERVAR · CONECTAR'
+}, {
+  bg: '#fff',
+  fg: 'var(--rk-black)',
+  wordmark: true
+}, {
+  bg: 'var(--rk-pink)',
+  fg: '#fff',
+  t: 'CULTURA + INFÂNCIA + FUTURO'
+}, {
+  bg: 'var(--rk-black)',
+  fg: '#fff',
+  t: 'CADERNO DE TENDÊNCIAS 2026'
+}, {
+  bg: 'var(--rk-blue)',
+  fg: '#fff',
+  t: '→ NOVOS INSIGHTS'
+}];
+function Post({
+  p,
+  onOpen
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    onClick: onOpen,
+    style: {
+      aspectRatio: '1',
+      background: p.bg,
+      color: p.fg,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center',
+      fontWeight: 800,
+      fontSize: 13,
+      padding: 12,
+      letterSpacing: '-.01em',
+      lineHeight: 1.15,
+      cursor: 'pointer'
+    }
+  }, p.star ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 40,
+      color: 'var(--rk-orange)'
+    }
+  }, "*") : p.wordmark ? /*#__PURE__*/React.createElement(Wordmark, {
+    size: 16
+  }) : p.t);
+}
+function InstagramApp() {
+  const [open, setOpen] = React.useState(null);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      minHeight: '100vh',
+      background: 'var(--rk-off-white)',
+      display: 'flex',
+      justifyContent: 'center',
+      padding: '40px 20px',
+      fontFamily: 'var(--font-sans)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 420,
+      background: 'var(--rk-off-white)',
+      borderRadius: 14,
+      overflow: 'hidden',
+      boxShadow: 'var(--shadow-lg)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 14,
+      padding: 18,
+      background: '#fff'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 54,
+      height: 54,
+      borderRadius: '50%',
+      background: 'var(--rk-black)',
+      color: '#fff',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontWeight: 800,
+      fontSize: 13,
+      lineHeight: 1
+    }
+  }, "RK", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-blue)',
+      fontSize: 9
+    }
+  }, "\u25CF")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 700,
+      fontSize: 15
+    }
+  }, "radarkids.oficial"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: 'var(--rk-muted)'
+    }
+  }, "Intelig\xEAncia de tend\xEAncias \xB7 inf\xE2ncia"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 22,
+      padding: '0 18px 14px',
+      fontSize: 12,
+      color: '#444',
+      background: '#fff'
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", {
+    style: {
+      display: 'block',
+      fontSize: 15,
+      color: 'var(--rk-black)'
+    }
+  }, "352"), "posts"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", {
+    style: {
+      display: 'block',
+      fontSize: 15,
+      color: 'var(--rk-black)'
+    }
+  }, "12,8k"), "seguidores"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", {
+    style: {
+      display: 'block',
+      fontSize: 15,
+      color: 'var(--rk-black)'
+    }
+  }, "OCIT"), "pilares")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3,1fr)',
+      gap: 2
+    }
+  }, POSTS.map((p, i) => /*#__PURE__*/React.createElement(Post, {
+    key: i,
+    p: p,
+    onOpen: () => setOpen(p)
+  })))), open && /*#__PURE__*/React.createElement("div", {
+    onClick: () => setOpen(null),
+    style: {
+      position: 'fixed',
+      inset: 0,
+      background: 'rgba(17,17,17,.6)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 1000
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 340,
+      aspectRatio: '1',
+      background: open.bg,
+      color: open.fg,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center',
+      fontWeight: 800,
+      fontSize: 22,
+      padding: 30,
+      borderRadius: 8
+    }
+  }, open.star ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 70,
+      color: 'var(--rk-orange)'
+    }
+  }, "*") : open.wordmark ? /*#__PURE__*/React.createElement(Wordmark, {
+    size: 30
+  }) : open.t)));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(InstagramApp, null));
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/instagram/InstagramApp.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/trend-report/ReportApp.jsx
+try { (() => {
+const RK = window.RADARKIDSDesignSystem_5f51e9;
+const {
+  Wordmark,
+  Badge,
+  Tabs
+} = RK;
+const page = {
+  width: 520,
+  minHeight: 720,
+  background: 'var(--rk-paper)',
+  boxShadow: 'var(--shadow-lg)',
+  borderRadius: 6,
+  padding: 50,
+  position: 'relative',
+  overflow: 'hidden',
+  boxSizing: 'border-box',
+  fontFamily: 'var(--font-sans)'
+};
+function CoverPage() {
+  return /*#__PURE__*/React.createElement("div", {
+    style: page
+  }, /*#__PURE__*/React.createElement(Wordmark, {
+    size: 24,
+    showRule: true
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      letterSpacing: '.2em',
+      textTransform: 'uppercase',
+      color: 'var(--rk-muted)',
+      marginTop: 40
+    }
+  }, "Caderno de Tend\xEAncias \xB7 Inf\xE2ncia"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 32,
+      fontWeight: 800,
+      letterSpacing: '-.02em',
+      lineHeight: 1.1,
+      marginTop: 10
+    }
+  }, "Comportamentos em movimento"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 52,
+      fontWeight: 800,
+      color: 'var(--rk-blue)',
+      marginTop: 34,
+      letterSpacing: '-.03em'
+    }
+  }, "2026"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 34,
+      fontSize: 13,
+      lineHeight: 2.2,
+      fontWeight: 600
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-blue)'
+    }
+  }, "OBSERVAR"), " \xB7 ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-orange)'
+    }
+  }, "CONECTAR"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-pink)'
+    }
+  }, "INSPIRAR"), " \xB7 ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-green)'
+    }
+  }, "TRANSFORMAR")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      bottom: 30,
+      left: 50,
+      fontWeight: 800,
+      fontSize: 14,
+      letterSpacing: '.1em'
+    }
+  }, "RK"));
+}
+function IndexPage() {
+  const rows = ['Comportamento do consumidor infantil', 'Materiais & sustentabilidade', 'Cor & silhueta 2027', 'Panorama competitivo'];
+  return /*#__PURE__*/React.createElement("div", {
+    style: page
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      letterSpacing: '.2em',
+      textTransform: 'uppercase',
+      color: 'var(--rk-blue)',
+      marginBottom: 30
+    }
+  }, "Sum\xE1rio"), rows.map((r, i) => /*#__PURE__*/React.createElement("div", {
+    key: r,
+    style: {
+      display: 'flex',
+      gap: 20,
+      padding: '18px 0',
+      borderBottom: '1px solid var(--rk-line)',
+      alignItems: 'baseline'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 13,
+      color: 'var(--rk-muted)',
+      fontWeight: 700
+    }
+  }, String(i + 1).padStart(2, '0')), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 17,
+      fontWeight: 600
+    }
+  }, r))));
+}
+function InsightPage() {
+  return /*#__PURE__*/React.createElement("div", {
+    style: page
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 60,
+      fontWeight: 800,
+      color: 'var(--rk-blue)',
+      letterSpacing: '-.04em'
+    }
+  }, "01"), /*#__PURE__*/React.createElement("h4", {
+    style: {
+      fontSize: 22,
+      fontWeight: 800,
+      marginTop: 16,
+      lineHeight: 1.15
+    }
+  }, "Novas formas de viver a inf\xE2ncia"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 14,
+      color: '#555',
+      marginTop: 16,
+      lineHeight: 1.6
+    }
+  }, "As tend\xEAncias est\xE3o moldando o presente e projetando o futuro do consumo infantil \u2014 da sustentabilidade \xE0 express\xE3o de identidade. Marcas que antecipam esse movimento constroem relev\xE2ncia de longo prazo."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 24,
+      display: 'flex',
+      gap: 8,
+      flexWrap: 'wrap'
+    }
+  }, /*#__PURE__*/React.createElement(Badge, {
+    pillar: "observar"
+  }, "Observar"), /*#__PURE__*/React.createElement(Badge, {
+    pillar: "transformar"
+  }, "Transformar")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'absolute',
+      width: 150,
+      height: 150,
+      borderRadius: '50%',
+      background: 'var(--rk-orange)',
+      right: -40,
+      bottom: -40,
+      opacity: .85
+    }
+  }));
+}
+const PAGES = {
+  cover: CoverPage,
+  index: IndexPage,
+  insight: InsightPage
+};
+function ReportApp() {
+  const [page_, setPage] = React.useState('cover');
+  const Comp = PAGES[page_];
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      minHeight: '100vh',
+      background: 'var(--rk-off-white)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      padding: '50px 24px',
+      fontFamily: 'var(--font-sans)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 26
+    }
+  }, /*#__PURE__*/React.createElement(Tabs, {
+    items: [{
+      value: 'cover',
+      label: 'Capa'
+    }, {
+      value: 'index',
+      label: 'Sumário'
+    }, {
+      value: 'insight',
+      label: 'Página de Insight'
+    }],
+    value: page_,
+    onChange: setPage
+  })), /*#__PURE__*/React.createElement(Comp, null));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(ReportApp, null));
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/trend-report/ReportApp.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/website/WebsiteApp.jsx
+try { (() => {
+const RK = window.RADARKIDSDesignSystem_5f51e9;
+const {
+  Wordmark,
+  Button,
+  Tag
+} = RK;
+function ArrowIcon() {
+  return /*#__PURE__*/React.createElement("svg", {
+    width: "14",
+    height: "14",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2.4",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M5 12h14M13 6l6 6-6 6"
+  }));
+}
+
+/* ---------- scroll reveal ---------- */
+function useReveal() {
+  const ref = React.useRef(null);
+  const [visible, setVisible] = React.useState(false);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          setVisible(true);
+          obs.unobserve(e.target);
+        }
+      });
+    }, {
+      threshold: 0.15
+    });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, visible];
+}
+function Reveal({
+  children,
+  delay = 0,
+  style = {}
+}) {
+  const [ref, visible] = useReveal();
+  return /*#__PURE__*/React.createElement("div", {
+    ref: ref,
+    style: {
+      opacity: visible ? 1 : 0,
+      transform: visible ? 'none' : 'translateY(26px)',
+      transition: `opacity 900ms cubic-bezier(.16,1,.3,1) ${delay}ms, transform 900ms cubic-bezier(.16,1,.3,1) ${delay}ms`,
+      ...style
+    }
+  }, children);
+}
+
+/* ---------- kid-in-circle portrait ----------
+   Source photos have their studio background flood-filled to the exact
+   brand color already (see assets/photos/*-solid.png), so a plain
+   object-fit:contain inside a same-color circular frame reads as one
+   seamless filled circle with the child inscribed inside it. */
+/* ---------- kid-in-circle portrait ----------
+   Source photos are transparent-background cutouts pre-composited (offscreen)
+   onto a same-brand-color circular canvas — see assets/photos/*-circle.png —
+   so the <img> already IS the filled circle; no runtime background needed. */
+function KidCircle({
+  src,
+  color,
+  size = 440,
+  alt,
+  imgWidth,
+  imgHeight
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: size,
+      height: size,
+      maxWidth: '100%',
+      flexShrink: 0,
+      borderRadius: '50%',
+      overflow: 'hidden',
+      background: color
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: src,
+    alt: alt,
+    style: {
+      width: imgWidth || '100%',
+      height: imgHeight || '100%',
+      objectFit: 'cover',
+      display: 'block'
+    }
+  }));
+}
+const wrap = {
+  maxWidth: 1400,
+  margin: '0 auto',
+  padding: '0 48px'
+};
+function Nav() {
+  const links = ['sobre', 'serviços', 'autoridade', 'conteúdo'];
+  return /*#__PURE__*/React.createElement("header", {
+    style: {
+      position: 'sticky',
+      top: 0,
+      zIndex: 100,
+      background: 'rgba(247,245,239,.9)',
+      backdropFilter: 'blur(6px)',
+      borderBottom: '1px solid var(--rk-line)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...wrap,
+      padding: '20px 48px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    }
+  }, /*#__PURE__*/React.createElement(Wordmark, {
+    size: 20
+  }), /*#__PURE__*/React.createElement("nav", {
+    style: {
+      display: 'flex',
+      gap: 32,
+      fontSize: 14,
+      color: '#444'
+    }
+  }, links.map(l => /*#__PURE__*/React.createElement("span", {
+    key: l,
+    style: {
+      cursor: 'pointer'
+    }
+  }, l))), /*#__PURE__*/React.createElement(Button, {
+    size: "sm",
+    onClick: () => window.open('https://calendly.com/priscilasalesdesouza/30min?month=2026-07', '_blank')
+  }, "contato")));
+}
+function Hero() {
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      ...wrap,
+      padding: '88px 48px 110px',
+      display: 'grid',
+      gridTemplateColumns: '1.1fr 0.9fr',
+      gap: 60,
+      alignItems: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 13,
+      letterSpacing: '.18em',
+      textTransform: 'uppercase',
+      color: 'var(--rk-muted)',
+      marginBottom: 26,
+      fontWeight: 600
+    }
+  }, "Intelig\xEAncia de tend\xEAncias \xB7 Cal\xE7ados infantis"), /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontSize: 'clamp(36px,4.6vw,58px)',
+      fontWeight: 800,
+      letterSpacing: '-.02em',
+      lineHeight: 1.08,
+      margin: '0 0 26px',
+      color: 'var(--rk-black)'
+    }
+  }, "Enxergamos a inf\xE2ncia ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-blue)'
+    }
+  }, "antes"), " de virar tend\xEAncia."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 18,
+      color: '#444',
+      maxWidth: 480,
+      lineHeight: 1.6,
+      margin: '0 0 34px'
+    }
+  }, "Intelig\xEAncia de mercado e comportamento de consumo para marcas de cal\xE7ados e acess\xF3rios infantis que desejam ir al\xE9m."), /*#__PURE__*/React.createElement(Button, {
+    icon: /*#__PURE__*/React.createElement(ArrowIcon, null),
+    onClick: () => window.open('https://calendly.com/priscilasalesdesouza/30min?month=2026-07', '_blank')
+  }, "conhe\xE7a nossos insights")), /*#__PURE__*/React.createElement(Reveal, {
+    delay: 120,
+    style: {
+      display: 'flex',
+      justifyContent: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(KidCircle, {
+    src: "../../assets/photos/kid-blue-solid.png",
+    color: "var(--rk-blue)",
+    size: 440,
+    imgWidth: 425,
+    imgHeight: 545,
+    alt: "Menina de jaqueta azul"
+  })));
+}
+function Manifesto() {
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      padding: '70px 48px 100px',
+      textAlign: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 'clamp(22px,2.6vw,32px)',
+      fontWeight: 700,
+      lineHeight: 1.45,
+      letterSpacing: '-.01em',
+      maxWidth: 900,
+      margin: '0 auto',
+      color: 'var(--rk-black)',
+      textTransform: 'uppercase'
+    }
+  }, "A RADAR ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-blue)'
+    }
+  }, "K"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-orange)'
+    }
+  }, "I"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-pink)'
+    }
+  }, "D"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-green)'
+    }
+  }, "S"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-orange)',
+      fontSize: '0.55em',
+      verticalAlign: 'top'
+    }
+  }, "*"), " ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-blue)'
+    }
+  }, "observa"), " o agora, ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-orange)'
+    }
+  }, "conecta"), " cultura e mercado e ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-green)'
+    }
+  }, "transforma"), " tend\xEAncias em decis\xF5es inteligentes para quem desenha o futuro da inf\xE2ncia.")));
+}
+function Pillars() {
+  const items = [{
+    n: '01',
+    k: 'var(--rk-blue)',
+    t: 'Observar',
+    d: 'Monitoramento contínuo de tendências, comportamentos e inovações no universo infantil.'
+  }, {
+    n: '02',
+    k: 'var(--rk-orange)',
+    t: 'Conectar',
+    d: 'Integração de insights entre mercados, culturas e disciplinas.'
+  }, {
+    n: '03',
+    k: 'var(--rk-pink)',
+    t: 'Inspirar',
+    d: 'Estímulo à criatividade com referências e análises validadas.'
+  }, {
+    n: '04',
+    k: 'var(--rk-green)',
+    t: 'Transformar',
+    d: 'Conversão de inteligência em decisões de produto e estratégia.'
+  }];
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      background: 'var(--rk-black)',
+      padding: '100px 0'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: wrap
+  }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 14,
+      marginBottom: 18
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 30,
+      height: 2,
+      background: 'var(--rk-orange)',
+      display: 'inline-block'
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      letterSpacing: '.24em',
+      textTransform: 'uppercase',
+      color: 'var(--rk-orange)',
+      fontWeight: 700
+    }
+  }, "Nosso m\xE9todo")), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 'clamp(30px,4vw,44px)',
+      fontWeight: 800,
+      letterSpacing: '-.02em',
+      color: 'var(--rk-off-white)',
+      margin: '0 0 20px',
+      lineHeight: 1.1
+    }
+  }, "Quatro movimentos, um ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-orange)'
+    }
+  }, "radar"), "."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      color: 'rgba(255,255,255,.65)',
+      fontSize: 16,
+      maxWidth: 560,
+      margin: '0 0 50px'
+    }
+  }, "Toda pesquisa percorre esses quatro passos \u2014 do sinal captado \xE0 decis\xE3o tomada.")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4,1fr)',
+      gap: 24
+    }
+  }, items.map((p, i) => /*#__PURE__*/React.createElement(Reveal, {
+    key: p.n,
+    delay: i * 80
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: '#1a1a1a',
+      borderRadius: 8,
+      padding: '26px 24px',
+      minHeight: 180,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      fontWeight: 700,
+      letterSpacing: '.1em',
+      color: p.k
+    }
+  }, p.n), /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 8,
+      height: 8,
+      borderRadius: '50%',
+      background: p.k
+    }
+  })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontSize: 20,
+      fontWeight: 800,
+      color: '#fff',
+      margin: '20px 0 10px',
+      letterSpacing: '-.01em'
+    }
+  }, p.t), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13.5,
+      color: 'rgba(255,255,255,.6)',
+      lineHeight: 1.5,
+      margin: 0
+    }
+  }, p.d))))))));
+}
+function Services() {
+  const services = [{
+    c: 'var(--rk-blue)',
+    t: 'Pesquisa de Tendência',
+    d: 'O que vai movimentar o mercado — cores, materiais, silhuetas e comportamentos emergentes, com antecedência.'
+  }, {
+    c: 'var(--rk-orange)',
+    t: 'Pesquisa de Mercado',
+    d: 'Dados, oportunidades e movimentos do setor de calçados e acessórios infantis.'
+  }, {
+    c: 'var(--rk-pink)',
+    t: 'Comportamento do Consumidor',
+    d: 'Como pais, crianças e influenciadores decidem, desejam e consomem.'
+  }, {
+    c: 'var(--rk-green)',
+    t: 'Análise da Concorrência',
+    d: 'Estudo competitivo de marcas nacionais e internacionais.'
+  }];
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      ...wrap,
+      padding: '110px 48px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '0.85fr 1.15fr',
+      gap: 70,
+      alignItems: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(Reveal, {
+    style: {
+      display: 'flex',
+      justifyContent: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(KidCircle, {
+    src: "../../assets/photos/kid-orange-circle.png",
+    color: "var(--rk-orange)",
+    size: 400,
+    alt: "Menino com luneta"
+  })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 14,
+      marginBottom: 18
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 30,
+      height: 2,
+      background: 'var(--rk-blue)',
+      display: 'inline-block'
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      letterSpacing: '.24em',
+      textTransform: 'uppercase',
+      color: 'var(--rk-blue)',
+      fontWeight: 700
+    }
+  }, "O que fazemos")), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 'clamp(28px,3.6vw,40px)',
+      fontWeight: 800,
+      letterSpacing: '-.02em',
+      lineHeight: 1.15,
+      margin: '0 0 44px'
+    }
+  }, "Pesquisa ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-orange)'
+    }
+  }, "sob medida"), " para o mercado infantil.")), services.map((s, i) => /*#__PURE__*/React.createElement(Reveal, {
+    key: s.t,
+    delay: i * 70
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 16,
+      padding: '22px 0',
+      borderTop: '1px solid var(--rk-line)'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 8,
+      height: 8,
+      borderRadius: '50%',
+      background: s.c,
+      marginTop: 8,
+      flexShrink: 0
+    }
+  }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", {
+    style: {
+      fontSize: 17,
+      fontWeight: 700,
+      margin: '0 0 6px'
+    }
+  }, s.t), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 14.5,
+      color: '#555',
+      lineHeight: 1.55,
+      margin: 0
+    }
+  }, s.d))))), /*#__PURE__*/React.createElement(Reveal, {
+    delay: 320
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 14.5,
+      color: '#555',
+      marginTop: 22,
+      borderTop: '1px solid var(--rk-line)',
+      paddingTop: 22
+    }
+  }, /*#__PURE__*/React.createElement("b", null, "E mais:"), " todo tipo de pesquisa voltada ao mercado cal\xE7adista infantil. Cada estudo \xE9 personalizado para a sua marca.")))));
+}
+function Authority() {
+  const chips = ['Pitti Bimbo', 'Playtime Paris', 'CIFF Kids'];
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      background: 'var(--rk-off-white)',
+      padding: '110px 0'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...wrap,
+      display: 'grid',
+      gridTemplateColumns: '0.85fr 1.15fr',
+      gap: 70,
+      alignItems: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(Reveal, {
+    style: {
+      display: 'flex',
+      justifyContent: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(KidCircle, {
+    src: "../../assets/photos/kid-yellow-circle.png",
+    color: "var(--rk-yellow)",
+    size: 400,
+    alt: "Fundadora quando crian\xE7a"
+  })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 14,
+      marginBottom: 18
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 30,
+      height: 2,
+      background: 'var(--rk-blue)',
+      display: 'inline-block'
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      letterSpacing: '.24em',
+      textTransform: 'uppercase',
+      color: 'var(--rk-blue)',
+      fontWeight: 700
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: '#0052FF'
+    }
+  }, "Autoridade"))), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 'clamp(28px,3.6vw,40px)',
+      fontWeight: 800,
+      letterSpacing: '-.02em',
+      margin: '0 0 34px'
+    }
+  }, "Quem l\xEA os ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-yellow)'
+    }
+  }, "sinais"), ".")), /*#__PURE__*/React.createElement(Reveal, {
+    delay: 80
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'baseline',
+      gap: 10,
+      marginBottom: 20
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 56,
+      fontWeight: 800,
+      color: 'var(--rk-blue)',
+      letterSpacing: '-.03em'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: '#F2C200'
+    }
+  }, "+13")), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 20,
+      fontWeight: 600
+    }
+  }, "anos")), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: '#444',
+      lineHeight: 1.65,
+      maxWidth: 520,
+      margin: '0 0 26px'
+    }
+  }, "De experi\xEAncia dedicada a cal\xE7ados e acess\xF3rios, em pesquisa de tend\xEAncias e desenvolvimento de produto. \xC9 essa bagagem que sustenta cada an\xE1lise da RADAR KIDS \u2014 e que d\xE1 acesso direto \xE0s fontes onde as tend\xEAncias nascem."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: 'var(--rk-muted)',
+      marginBottom: 14
+    }
+  }, "Acompanhamos de perto os principais polos globais do setor:"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 10,
+      flexWrap: 'wrap'
+    }
+  }, chips.map(c => /*#__PURE__*/React.createElement(Tag, {
+    key: c
+  }, c)))))));
+}
+function Content() {
+  const posts = [{
+    bg: 'var(--rk-blue)',
+    t: 'O futuro se constrói na infância'
+  }, {
+    bg: '#fff',
+    star: true
+  }, {
+    bg: 'var(--rk-black)',
+    t: 'Tendências para ir além'
+  }, {
+    bg: 'var(--rk-orange)',
+    t: 'Insights que geram direção'
+  }, {
+    bg: 'var(--rk-green)',
+    t: 'Observar · Conectar'
+  }, {
+    bg: 'var(--rk-pink)',
+    t: 'Cultura + infância'
+  }];
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      ...wrap,
+      padding: '110px 48px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      gap: 70,
+      alignItems: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 14,
+      marginBottom: 18
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 30,
+      height: 2,
+      background: 'var(--rk-blue)',
+      display: 'inline-block'
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 12,
+      letterSpacing: '.24em',
+      textTransform: 'uppercase',
+      color: 'var(--rk-blue)',
+      fontWeight: 700
+    }
+  }, "No radar, todo dia")), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 'clamp(28px,3.6vw,40px)',
+      fontWeight: 800,
+      letterSpacing: '-.02em',
+      lineHeight: 1.15,
+      margin: '0 0 24px'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-orange)'
+    }
+  }, "P\xEDlulas"), " de tend\xEAncia no Instagram."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: '#444',
+      lineHeight: 1.6,
+      maxWidth: 440,
+      margin: '0 0 30px'
+    }
+  }, "Enquanto a pesquisa profunda \xE9 sob demanda, o nosso perfil entrega leituras r\xE1pidas do que est\xE1 se movendo na inf\xE2ncia \u2014 a porta de entrada para conhecer o pensamento da RADAR KIDS."), /*#__PURE__*/React.createElement(Button, {
+    variant: "dark",
+    icon: /*#__PURE__*/React.createElement(ArrowIcon, null),
+    onClick: () => window.open('https://www.instagram.com/radarkidsconsultoria/', '_blank')
+  }, "Seguir no Instagram")), /*#__PURE__*/React.createElement(Reveal, {
+    delay: 120
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3,1fr)',
+      gap: 8
+    }
+  }, posts.map((p, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      aspectRatio: '1',
+      borderRadius: 6,
+      background: p.bg,
+      color: p.bg === '#fff' ? 'var(--rk-black)' : '#fff',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center',
+      padding: 12,
+      fontSize: 12.5,
+      fontWeight: 700,
+      lineHeight: 1.25
+    }
+  }, p.star ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 30,
+      color: 'var(--rk-orange)'
+    }
+  }, "*") : p.t))))));
+}
+function ClosingCTA() {
+  return /*#__PURE__*/React.createElement("section", {
+    style: {
+      ...wrap,
+      padding: '110px 48px 130px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '1.1fr 0.9fr',
+      gap: 60,
+      alignItems: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'block',
+      color: 'var(--rk-orange)',
+      fontSize: 26,
+      marginBottom: 20
+    }
+  }, "*"), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 'clamp(30px,4vw,44px)',
+      fontWeight: 800,
+      letterSpacing: '-.02em',
+      lineHeight: 1.12,
+      margin: '0 0 24px'
+    }
+  }, "Sua pr\xF3xima cole\xE7\xE3o come\xE7a com um ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--rk-green)'
+    }
+  }, "sinal"), "."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: '#444',
+      lineHeight: 1.6,
+      maxWidth: 440,
+      margin: '0 0 30px'
+    }
+  }, "Conte o que a sua marca precisa entender sobre o mercado infantil. A gente pesquisa, traduz e aponta a dire\xE7\xE3o."), /*#__PURE__*/React.createElement(Button, {
+    icon: /*#__PURE__*/React.createElement(ArrowIcon, null),
+    onClick: () => window.open('https://calendly.com/priscilasalesdesouza/30min?month=2026-07', '_blank')
+  }, "Fale com a RADAR KIDS"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 20,
+      marginTop: 22,
+      fontSize: 14,
+      color: 'var(--rk-muted)'
+    }
+  }, /*#__PURE__*/React.createElement("span", null, "contato@radarkids.com.br"), /*#__PURE__*/React.createElement("span", null, "@radarkids"))), /*#__PURE__*/React.createElement(Reveal, {
+    delay: 120,
+    style: {
+      display: 'flex',
+      justifyContent: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(KidCircle, {
+    src: "../../assets/photos/kid-green-circle.png",
+    color: "var(--rk-green)",
+    size: 420,
+    alt: "Menino sorrindo"
+  }))));
+}
+function Footer() {
+  return /*#__PURE__*/React.createElement("footer", {
+    style: {
+      background: 'var(--rk-black)',
+      padding: '56px 48px 40px'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: wrap
+  }, /*#__PURE__*/React.createElement(Wordmark, {
+    size: 22,
+    variant: "dark",
+    showAsterisk: true
+  }), /*#__PURE__*/React.createElement("p", {
+    style: {
+      color: 'rgba(255,255,255,.7)',
+      fontSize: 14,
+      margin: '22px 0 10px'
+    }
+  }, "Intelig\xEAncia de tend\xEAncias para cal\xE7ados e acess\xF3rios infantis."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      color: 'rgba(255,255,255,.45)',
+      fontSize: 12,
+      letterSpacing: '.08em',
+      textTransform: 'uppercase',
+      margin: '0 0 30px'
+    }
+  }, "Observar \xB7 Conectar \xB7 Inspirar \xB7 Transformar"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      color: 'rgba(255,255,255,.4)',
+      fontSize: 12,
+      margin: 0,
+      borderTop: '1px solid rgba(255,255,255,.12)',
+      paddingTop: 20
+    }
+  }, "\xA9 2026 RADAR KIDS. Todos os direitos reservados.")));
+}
+function LandingApp() {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: 'var(--rk-paper)',
+      color: 'var(--rk-black)',
+      minHeight: '100vh',
+      fontFamily: 'var(--font-sans)'
+    }
+  }, /*#__PURE__*/React.createElement(Nav, null), /*#__PURE__*/React.createElement(Hero, null), /*#__PURE__*/React.createElement(Manifesto, null), /*#__PURE__*/React.createElement(Pillars, null), /*#__PURE__*/React.createElement(Services, null), /*#__PURE__*/React.createElement(Authority, null), /*#__PURE__*/React.createElement(Content, null), /*#__PURE__*/React.createElement(ClosingCTA, null), /*#__PURE__*/React.createElement(Footer, null));
+}
+ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(LandingApp, null));
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/website/WebsiteApp.jsx", error: String((e && e.message) || e) }); }
+
+__ds_ns.Wordmark = __ds_scope.Wordmark;
+
+__ds_ns.Badge = __ds_scope.Badge;
+
+__ds_ns.Button = __ds_scope.Button;
+
+__ds_ns.Card = __ds_scope.Card;
+
+__ds_ns.IconButton = __ds_scope.IconButton;
+
+__ds_ns.Tag = __ds_scope.Tag;
+
+__ds_ns.Dialog = __ds_scope.Dialog;
+
+__ds_ns.Toast = __ds_scope.Toast;
+
+__ds_ns.Tooltip = __ds_scope.Tooltip;
+
+__ds_ns.Checkbox = __ds_scope.Checkbox;
+
+__ds_ns.Input = __ds_scope.Input;
+
+__ds_ns.Radio = __ds_scope.Radio;
+
+__ds_ns.Select = __ds_scope.Select;
+
+__ds_ns.Switch = __ds_scope.Switch;
+
+__ds_ns.Tabs = __ds_scope.Tabs;
+
+})();
+</script>
+<style>*{box-sizing:border-box}body{margin:0;font-family:var(--font-sans)}</style>
+
+</head>
+<body>
+<div id="radarkids-website-root"></div>
+<script type="text/babel">
+const RK = window.RADARKIDSDesignSystem_5f51e9;
+const { Wordmark, Button, Tag } = RK;
+
+function ArrowIcon(){
+  return <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>;
+}
+
+/* ---------- scroll reveal ---------- */
+function useReveal() {
+  const ref = React.useRef(null);
+  const [visible, setVisible] = React.useState(false);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { setVisible(true); obs.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return [ref, visible];
+}
+
+function Reveal({ children, delay = 0, style = {} }) {
+  const [ref, visible] = useReveal();
+  return (
+    <div ref={ref} style={{
+      opacity: visible ? 1 : 0,
+      transform: visible ? 'none' : 'translateY(26px)',
+      transition: `opacity 900ms cubic-bezier(.16,1,.3,1) ${delay}ms, transform 900ms cubic-bezier(.16,1,.3,1) ${delay}ms`,
+      ...style,
+    }}>
+      {children}
+    </div>
+  );
+}
+
+/* ---------- kid-in-circle portrait ----------
+   Source photos have their studio background flood-filled to the exact
+   brand color already (see assets/photos/*-solid.png), so a plain
+   object-fit:contain inside a same-color circular frame reads as one
+   seamless filled circle with the child inscribed inside it. */
+/* ---------- kid-in-circle portrait ----------
+   Source photos are transparent-background cutouts pre-composited (offscreen)
+   onto a same-brand-color circular canvas — see assets/photos/*-circle.png —
+   so the <img> already IS the filled circle; no runtime background needed. */
+function KidCircle({ src, color, size = 440, alt, imgWidth, imgHeight }) {
+  return (
+    <div style={{ width:size, height:size, maxWidth:'100%', flexShrink:0, borderRadius:'50%', overflow:'hidden', background:color }}>
+      <img src={src} alt={alt} style={{ width:imgWidth || '100%', height:imgHeight || '100%', objectFit:'cover', display:'block' }} />
+    </div>
+  );
+}
+
+const wrap = { maxWidth:1400, margin:'0 auto', padding:'0 48px' };
+
+function Nav(){
+  const links = ['sobre','serviços','autoridade','conteúdo'];
+  return (
+    <header style={{ position:'sticky', top:0, zIndex:100, background:'rgba(247,245,239,.9)', backdropFilter:'blur(6px)', borderBottom:'1px solid var(--rk-line)' }}>
+      <div style={{ ...wrap, padding:'20px 48px', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+        <Wordmark size={20} />
+        <nav style={{ display:'flex', gap:32, fontSize:14, color:'#444' }}>
+          {links.map(l => <span key={l} style={{ cursor:'pointer' }}>{l}</span>)}
+        </nav>
+        <Button size="sm" onClick={() => window.open('https://calendly.com/priscilasalesdesouza/30min?month=2026-07','_blank')}>contato</Button>
+      </div>
+    </header>
+  );
+}
+
+function Hero(){
+  return (
+    <section style={{ ...wrap, padding:'88px 48px 110px', display:'grid', gridTemplateColumns:'1.1fr 0.9fr', gap:60, alignItems:'center' }}>
+      <Reveal>
+        <div style={{ fontSize:13, letterSpacing:'.18em', textTransform:'uppercase', color:'var(--rk-muted)', marginBottom:26, fontWeight:600 }}>
+          Inteligência de Mercado · Calçados infantis
+        </div>
+        <h1 style={{ fontSize:'clamp(36px,4.6vw,58px)', fontWeight:800, letterSpacing:'-.02em', lineHeight:1.08, margin:'0 0 26px', color:'var(--rk-black)' }}>
+          Enxergamos o futuro da infância <span style={{ color:'var(--rk-blue)' }}>antes</span> de virar tendência.
+        </h1>
+        <p style={{ fontSize:18, color:'#444', maxWidth:480, lineHeight:1.6, margin:'0 0 34px' }}>
+          Pesquisa de Tendências e Comportamento de Consumo para marcas de calçados e acessórios infantis que desejam ir além.
+        </p>
+        <Button icon={<ArrowIcon/>} onClick={() => window.open('https://calendly.com/priscilasalesdesouza/30min?month=2026-07','_blank')}>conheça nossos insights</Button>
+      </Reveal>
+      <Reveal delay={120} style={{ display:'flex', justifyContent:'center' }}>
+        <KidCircle src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBTAA7" color="var(--rk-blue)" size={440} imgWidth={425} imgHeight={545} alt="Menina de jaqueta azul" />
+      </Reveal>
+    </section>
+  );
+}
+
+function Pillars(){
+  const items = [
+    { n:'01', k:'var(--rk-blue)', t:'Observar', d:'Monitoramento contínuo de tendências, comportamentos e inovações no universo infantil.' },
+    { n:'02', k:'var(--rk-orange)', t:'Conectar', d:'Integração de insights entre mercados, culturas e disciplinas.' },
+    { n:'03', k:'var(--rk-pink)', t:'Inspirar', d:'Estímulo à criatividade com referências e análises validadas.' },
+    { n:'04', k:'var(--rk-green)', t:'Transformar', d:'Conversão de inteligência em decisões de produto e estratégia.' },
+  ];
+  return (
+    <section style={{ background:'var(--rk-black)', padding:'100px 0' }}>
+      <div style={wrap}>
+        <Reveal>
+          <div style={{ display:'flex', alignItems:'center', gap:14, marginBottom:18 }}>
+            <span style={{ width:30, height:2, background:'var(--rk-orange)', display:'inline-block' }} />
+            <span style={{ fontSize:12, letterSpacing:'.24em', textTransform:'uppercase', color:'var(--rk-orange)', fontWeight:700 }}>Nosso método</span>
+          </div>
+          <h2 style={{ fontSize:'clamp(30px,4vw,44px)', fontWeight:800, letterSpacing:'-.02em', color:'var(--rk-off-white)', margin:'0 0 20px', lineHeight:1.1 }}>
+            Quatro movimentos, um <span style={{ color:'var(--rk-orange)' }}>radar</span>.
+          </h2>
+          <p style={{ color:'rgba(255,255,255,.65)', fontSize:16, maxWidth:560, margin:'0 0 50px' }}>
+            Toda pesquisa percorre esses quatro passos — do sinal captado à decisão tomada.
+          </p>
+        </Reveal>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:24 }}>
+          {items.map((p,i) => (
+            <Reveal key={p.n} delay={i*80}>
+              <div style={{ background:'#1a1a1a', borderRadius:8, padding:'26px 24px', minHeight:180, display:'flex', flexDirection:'column', justifyContent:'flex-start' }}>
+                <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+                  <span style={{ fontSize:12, fontWeight:700, letterSpacing:'.1em', color:p.k }}>{p.n}</span>
+                  <span style={{ fontSize:18, fontWeight:800, color:p.k, lineHeight:1 }}>*</span>
+                </div>
+                <div>
+                  <h3 style={{ fontSize:20, fontWeight:800, color:'#fff', margin:'20px 0 10px', letterSpacing:'-.01em' }}>{p.t}</h3>
+                  <p style={{ fontSize:13.5, color:'rgba(255,255,255,.6)', lineHeight:1.5, margin:0 }}>{p.d}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Services(){
+  const services = [
+    { c:'var(--rk-blue)', t:'Pesquisa de Tendência', d:'O que vai movimentar o mercado — cores, materiais, silhuetas e comportamentos emergentes, com antecedência.' },
+    { c:'var(--rk-orange)', t:'Pesquisa de Mercado', d:'Dados, oportunidades e movimentos do setor de calçados e acessórios infantis.' },
+    { c:'var(--rk-pink)', t:'Comportamento do Consumidor', d:'Como pais, crianças e influenciadores decidem, desejam e consomem.' },
+    { c:'var(--rk-green)', t:'Análise da Concorrência', d:'Estudo competitivo de marcas nacionais e internacionais.' },
+  ];
+  return (
+    <section style={{ ...wrap, padding:'110px 48px' }}>
+      <div style={{ display:'grid', gridTemplateColumns:'0.85fr 1.15fr', gap:70, alignItems:'center' }}>
+        <Reveal style={{ display:'flex', justifyContent:'center' }}>
+          <div style={{ width:440, height:440, maxWidth:'100%', flexShrink:0, borderRadius:'50%', overflow:'hidden', background:'var(--rk-orange)' }}><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBTAA7" alt="Menino com luneta" style={{ width:'100%', height:'100%', objectFit:'contain', objectPosition:'center top', transform:'scale(1.3) translateY(-6%)', transformOrigin:'center top', display:'block' }} /></div>
+        </Reveal>
+        <div>
+          <Reveal>
+            <div style={{ display:'flex', alignItems:'center', gap:14, marginBottom:18 }}>
+              <span style={{ width:30, height:2, background:'var(--rk-orange)', display:'inline-block' }} />
+              <span style={{ fontSize:12, letterSpacing:'.24em', textTransform:'uppercase', color:'var(--rk-orange)', fontWeight:700 }}>O que fazemos</span>
+            </div>
+            <h2 style={{ fontSize:'clamp(28px,3.6vw,40px)', fontWeight:800, letterSpacing:'-.02em', lineHeight:1.15, margin:'0 0 44px' }}>
+              Pesquisa <span style={{ color:'var(--rk-orange)' }}>sob medida</span> para o mercado infantil.
+            </h2>
+          </Reveal>
+          {services.map((s,i) => (
+            <Reveal key={s.t} delay={i*70}>
+              <div style={{ display:'flex', gap:16, padding:'22px 0', borderTop:'1px solid var(--rk-line)' }}>
+                <span style={{ fontSize:20, fontWeight:800, color:s.c, lineHeight:1, marginTop:2, flexShrink:0 }}>*</span>
+                <div>
+                  <h4 style={{ fontSize:17, fontWeight:700, margin:'0 0 6px' }}>{s.t}</h4>
+                  <p style={{ fontSize:14.5, color:'#555', lineHeight:1.55, margin:0 }}>{s.d}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+          <Reveal delay={320}>
+            <p style={{ fontSize:14.5, color:'#555', marginTop:22, borderTop:'1px solid var(--rk-line)', paddingTop:22 }}>
+              <b style={{ color:'var(--rk-orange)' }}>E mais:</b> todo tipo de pesquisa voltada ao mercado calçadista infantil. Cada estudo é personalizado para a sua marca.
+            </p>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Authority(){
+  const chips = ['Pitti Bimbo','Playtime Paris','CIFF Kids'];
+  return (
+    <section style={{ background:'var(--rk-off-white)', padding:'110px 0' }}>
+      <div style={{ ...wrap, display:'grid', gridTemplateColumns:'0.85fr 1.15fr', gap:70, alignItems:'start' }}>
+        <Reveal style={{ display:'flex', justifyContent:'center', position:'sticky', top:110 }}>
+          <div style={{ width:440, height:440, maxWidth:'100%', flexShrink:0, borderRadius:'50%', overflow:'hidden', background:'var(--rk-yellow)' }}><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBTAA7" alt="Priscila Sales de Souza, fundadora da RADAR KIDS" style={{ width:'100%', height:'100%', objectFit:'contain', objectPosition:'center top', transform:'scale(1.3) translateY(-6%)', transformOrigin:'center top', display:'block' }} /></div>
+        </Reveal>
+        <div>
+          <Reveal>
+            <div style={{ display:'flex', alignItems:'center', gap:14, marginBottom:18 }}>
+              <span style={{ width:30, height:2, background:'var(--rk-yellow)', display:'inline-block' }} />
+              <span style={{ fontSize:12, letterSpacing:'.24em', textTransform:'uppercase', color:'var(--rk-yellow)', fontWeight:700 }}>Autoridade</span>
+            </div>
+            <h2 style={{ fontSize:'clamp(28px,3.6vw,40px)', fontWeight:800, letterSpacing:'-.02em', margin:'0 0 34px' }}>
+              Quem lê os <span style={{ color:'var(--rk-yellow)' }}>sinais</span>.
+            </h2>
+          </Reveal>
+          <Reveal delay={80}>
+            <div style={{ display:'flex', alignItems:'baseline', gap:10, marginBottom:20 }}>
+              <span style={{ fontSize:56, fontWeight:800, color:'var(--rk-blue)', letterSpacing:'-.03em' }}><span style={{ color:'#F2C200' }}>+14</span></span>
+              <span style={{ fontSize:20, fontWeight:600 }}>anos</span>
+            </div>
+            <p style={{ fontSize:16, color:'#444', lineHeight:1.65, maxWidth:560, margin:'0 0 18px' }}>Especialista em Pesquisa de Tendências, Inteligência de Mercado e Estratégia de Produto, com mais de 14 anos de experiência na indústria, varejo e e-commerce, atuando com calçados e acessórios para os segmento infantil.</p>
+            <p style={{ fontSize:16, color:'#444', lineHeight:1.65, maxWidth:560, margin:'0 0 18px' }}>Ao longo da carreira, realizeou pesquisas pelo Brasil e nos mais importantes centros de referências internacionais da moda e design, incluindo Itália, França, Espanha, Portugal, Holanda, Reino Unido e Estados Unidos.</p>
+            <p style={{ fontSize:16, color:'#444', lineHeight:1.65, maxWidth:560, margin:'0 0 26px' }}>Experiência essa que ampliou sua  capacidade de investigar sinais emergentes, interpretar mudanças no comportamento do consumidor e identificar tendências com potencial de impacto sobre produtos e coleções.</p>
+            
+            <p style={{ fontSize:13, color:'var(--rk-muted)', marginBottom:14 }}>Acompanhamos de perto as principais feiras globais do setor:</p>
+            <div style={{ display:'flex', gap:10, flexWrap:'wrap' }}>
+              {chips.map(c => <span key={c} style={{ display:'inline-flex', alignItems:'center', padding:'8px 16px', borderRadius:999, background:'var(--rk-yellow,#F2C200)', color:'#fff', fontSize:13, fontWeight:600, letterSpacing:'.02em' }}>{c}</span>)}
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Content(){
+  const posts = [
+    { bg:'var(--rk-blue)', t:'O futuro se constrói na infância' },
+    { bg:'#fff', star:true },
+    { bg:'var(--rk-black)', t:'Tendências para ir além' },
+    { bg:'var(--rk-orange)', t:'Insights que geram direção' },
+    { bg:'var(--rk-green)', t:'Observar · Conectar' },
+    { bg:'var(--rk-pink)', t:'Cultura + infância' },
+  ];
+  return (
+    <section style={{ ...wrap, padding:'110px 48px' }}>
+      <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:70, alignItems:'center' }}>
+        <Reveal>
+          <div style={{ display:'flex', alignItems:'center', gap:14, marginBottom:18 }}>
+            <span style={{ width:30, height:2, background:'var(--rk-orange)', display:'inline-block' }} />
+            <span style={{ fontSize:12, letterSpacing:'.24em', textTransform:'uppercase', color:'var(--rk-orange)', fontWeight:700 }}>No radar, todo dia</span>
+          </div>
+          <h2 style={{ fontSize:'clamp(28px,3.6vw,40px)', fontWeight:800, letterSpacing:'-.02em', lineHeight:1.15, margin:'0 0 24px' }}>
+            <span style={{ color:'var(--rk-orange)' }}>Pílulas</span> de tendência no Instagram.
+          </h2>
+          <p style={{ fontSize:16, color:'#444', lineHeight:1.6, maxWidth:440, margin:'0 0 30px' }}>
+            Enquanto a pesquisa profunda é sob demanda, o nosso perfil entrega leituras rápidas do que está se movendo na infância — a porta de entrada para conhecer o pensamento da RADAR <span style={{ color:'var(--rk-blue)' }}>K</span><span style={{ color:'var(--rk-orange)' }}>I</span><span style={{ color:'var(--rk-pink)' }}>D</span><span style={{ color:'var(--rk-green)' }}>S</span>.
+          </p>
+          <button type="button" onClick={() => window.open('https://www.instagram.com/radarkidsconsultoria/','_blank')} style={{ display:'inline-flex', alignItems:'center', gap:10, justifyContent:'center', fontFamily:'var(--font-sans)', fontWeight:600, letterSpacing:'-.01em', cursor:'pointer', borderRadius:'var(--radius-pill)', border:'none', background:'var(--rk-orange)', color:'#fff', padding:'14px 24px', fontSize:14 }}>Seguir no Instagram<ArrowIcon/></button>
+        </Reveal>
+        <Reveal delay={120}>
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:8 }}>
+            {posts.map((p,i) => (
+              <div key={i} style={{ aspectRatio:'1', borderRadius:6, background:p.bg, color:p.bg==='#fff' ? 'var(--rk-black)' : '#fff', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center', padding:12, fontSize:12.5, fontWeight:700, lineHeight:1.25 }}>
+                {p.star ? <span style={{ fontSize:30, color:'var(--rk-orange)' }}>*</span> : p.t}
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function ClosingCTA(){
+  return (
+    <section style={{ background:'var(--rk-off-white)', padding:'110px 0 130px' }}>
+      <div style={wrap}>
+      <div style={{ display:'grid', gridTemplateColumns:'1.1fr 0.9fr', gap:60, alignItems:'center' }}>
+        <Reveal>
+          <div style={{ display:'flex', alignItems:'center', gap:14, marginBottom:18 }}>
+            <span style={{ width:30, height:2, background:'var(--rk-green)', display:'inline-block' }} />
+            <span style={{ fontSize:12, letterSpacing:'.24em', textTransform:'uppercase', color:'var(--rk-green)', fontWeight:700 }}>Vamos nos conectar</span>
+          </div>
+          <h2 style={{ fontSize:'clamp(30px,4vw,44px)', fontWeight:800, letterSpacing:'-.02em', lineHeight:1.12, margin:'0 0 24px' }}>
+            Sua próxima coleção começa com um <span style={{ color:'var(--rk-green)' }}>sinal</span>.
+          </h2>
+          <p style={{ fontSize:16, color:'#444', lineHeight:1.6, maxWidth:440, margin:'0 0 30px' }}>
+            Conte o que a sua marca precisa entender sobre o mercado infantil. A gente pesquisa, traduz e aponta a direção.
+          </p>
+          <button type="button" onClick={() => window.open('https://calendly.com/priscilasalesdesouza/30min?month=2026-07','_blank')} style={{ display:'inline-flex', alignItems:'center', gap:10, justifyContent:'center', fontFamily:'var(--font-sans)', fontWeight:600, letterSpacing:'-.01em', cursor:'pointer', borderRadius:'var(--radius-pill)', border:'none', background:'var(--rk-black)', color:'#fff', padding:'14px 24px', fontSize:14 }}>Fale com a RADAR <span style={{ color:'var(--rk-blue)' }}>K</span><span style={{ color:'var(--rk-orange)' }}>I</span><span style={{ color:'var(--rk-pink)' }}>D</span><span style={{ color:'var(--rk-green)' }}>S</span><ArrowIcon/></button>
+        </Reveal>
+        <Reveal delay={120} style={{ display:'flex', justifyContent:'center' }}>
+          <div style={{ width:440, height:440, maxWidth:'100%', flexShrink:0, borderRadius:'50%', overflow:'hidden', background:'var(--rk-green)' }}><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBTAA7" alt="Menino sorrindo" style={{ width:'100%', height:'100%', objectFit:'contain', objectPosition:'center top', transform:'scale(1.3) translateY(-6%)', transformOrigin:'center top', display:'block' }} /></div>
+        </Reveal>
+      </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer(){
+  return (
+    <footer style={{ background:'var(--rk-black)', padding:'56px 48px 40px' }}>
+      <div style={wrap}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start' }}>
+          <div>
+            <Wordmark size={22} variant="dark" showAsterisk />
+            <p style={{ color:'rgba(255,255,255,.7)', fontSize:14, margin:'22px 0 10px' }}>
+              Inteligência de Mercado para calçados e acessórios infantis.
+            </p>
+            <p style={{ color:'rgba(255,255,255,.45)', fontSize:12, letterSpacing:'.08em', textTransform:'uppercase', margin:0 }}>
+              Observar · Conectar · Inspirar · Transformar
+            </p>
+          </div>
+          <div style={{ display:'flex', gap:14, marginTop:44 }}>
+            <a href="mailto:radarkidsconsultoria@gmail.com" aria-label="E-mail" style={{ display:'flex', alignItems:'center', justifyContent:'center', width:38, height:38, borderRadius:'50%', border:'1px solid rgba(255,255,255,.25)', color:'#fff' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg>
+            </a>
+            <a href="https://www.instagram.com/radarkidsconsultoria/" target="_blank" aria-label="Instagram" style={{ display:'flex', alignItems:'center', justifyContent:'center', width:38, height:38, borderRadius:'50%', border:'1px solid rgba(255,255,255,.25)', color:'#fff' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+            </a>
+          </div>
+        </div>
+        <p style={{ color:'rgba(255,255,255,.4)', fontSize:12, margin:'30px 0 0', borderTop:'1px solid rgba(255,255,255,.12)', paddingTop:20 }}>
+          © 2026 RADAR <span style={{ color:'var(--rk-blue)' }}>K</span><span style={{ color:'var(--rk-orange)' }}>I</span><span style={{ color:'var(--rk-pink)' }}>D</span><span style={{ color:'var(--rk-green)' }}>S</span>. Todos os direitos reservados.
+        </p>
+      </div>
+    </footer>
+  );
+}
+
+function LandingApp(){
+  return (
+    <div style={{ background:'var(--rk-paper)', color:'var(--rk-black)', minHeight:'100vh', fontFamily:'var(--font-sans)' }}>
+      <Nav />
+      <Hero />
+      <Pillars />
+      <Services />
+      <Authority />
+      <Content />
+      <ClosingCTA />
+      <Footer />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('radarkids-website-root')).render(<LandingApp/>);
+
+</script>
+
+</body></html>
